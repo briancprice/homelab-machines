@@ -1,0 +1,1 @@
+# Disko boot partition configuration
