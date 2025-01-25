@@ -34,8 +34,7 @@
       qemuConfig = { config, lib, ... }: {
         imports = [
           inputs.disko.nixosModules.disko
-          ./common
-          ./qemu/machine-configuration.nix
+          ./qemu
         ];
       };
 
@@ -43,15 +42,13 @@
         imports = [
           inputs.disko.nixosModules.disko
           inputs.impermanence.nixosModules.impermanence
-          ./common
-          ./lenovo/machine-configuration.nix
+          ./lenovo
         ];
       };
 
       dell-5810Config = { config, pkgs, ...}: {
         imports = [
           inputs.disko.nixosModules.disko
-          ./common
           ./dell-5810
         ];
         
@@ -92,8 +89,6 @@
           ./common/onboard-configuration.nix
         ];
       };
-
     };
-
   };
 }

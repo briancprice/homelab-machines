@@ -1,17 +1,39 @@
 # Machine Hardware Configuration
 
+This repository holds the NixOS machine configurations for the PCs in my homelab.  
+The goal is to separate the machine-specific hardware configurations from the NixOS
+ software configurations that they will host.
+
+ ## Machines
+ - [Dell Server](./dell-5810/readme.md)
+ - [Lenovo Laptop](./lenovo/readme.md)
+ - [Qemu Guest](./qemu/): A common VM configuration
+
+ ## Configuration
+ The flake outputs a module for each machine in this repository.  The module does the following:
+ - Includes the hardware-configuration.nix, or equivalent, for the machine.
+ - Includes some common bare-bones configuration options that I want for all machines ./common/default.nix.
+ - Defines the mount points for the machine.
+
+ When needed the configuration will also pull in modules that are needed during the bootstrap process.  Such as...
+ - [Disko](https://github.com/nix-community/disko)
+ - [Impermanence](https://github.com/nix-community/impermanence)
+ - [Sops](https://github.com/Mic92/sops-nix)
+
+ Notes on Impermanence
+
+
 ## Machine Bootstrap Instructions
 
 The bootstrap configuration for homelab machines is as follows...
 homelab/machines contains a directory for each machine...
 ```sh
 # Directory Structure
-/homelab/machine/lenovo
-/homelab/machines/lenovo/disko.nix
+/homelab-machine/lenovo
+/homelab-machines/lenovo/disko.nix
 
-/homelab/machines/flake.nix
+/homelab-machines/flake.nix
 ```
-TODO: Finsish documentation
 ---
 
 [NixOS Wiki: Disko](wiki.nixos.org/wiki/Disko)
@@ -44,7 +66,7 @@ sudo wipefs --all /dev/vda
 # 2.  Retrieve the git repository
 
 cd ~/
-git clone https://github.com/briancprice/homelab.git
+git clone https://github.com/briancprice/homelab-machines.git
 cd homelab
 
 # 3.  Run Disko to partition/format the drives
@@ -79,7 +101,7 @@ nixos-install --flakes ./#lenovo-host \
 sudo nix --experimental-features "nix-command flakes" \
 run github:nix-community/disko/latest#disko-install -- \
 --write-efi-boot-entries \
---flake ./machines#lenovo-bootstrap \
+--flake github:briancprice/homelab-machines#lenovo-bootstrap \
 --disk main /dev/vda
 
 # Note:
@@ -105,5 +127,10 @@ run github:nix-community/disko/latest#disko-install -- \
 - [tmpfs as home](https://elis.nu/blog/2020/06/nixos-tmpfs-as-home/):Use impermanence module with home-manager
 - [Erase Your Darlings](https://grahamc.com/blog/erase-your-darlings/): Essay on "why" you should create an ephemeral system
 
-
-*See the readme in the root of this project for more information.*
+### GPUs and GPU VM Passthrough
+Using NixOS as a hypervisor...
+- [astrid.tech - A GPU Passthrough Setup for NixOS](https://mathiashueber.com/windows-virtual-machine-gpu-passthrough-ubuntu/) An excellent starting place for NixOS VM Passthrough
+- [Beginner friendly guide to windows virtual machines with GPU passthrough](https://mathiashueber.com/windows-virtual-machine-gpu-passthrough-ubuntu/)
+- [NixOS Wiki: Virt-manager](https://wiki.nixos.org/wiki/Virt-manager)
+- [NixOS Wiki: Nvidia](https://nixos.wiki/wiki/Nvidia) - Note: you have to add acceptance for the Nvidia License to the config.
+- [NixOS Wiki:]()

@@ -1,15 +1,17 @@
 # Default configuration for my Dell 5810
 { config, lib, namespace, ... }:
-let
-  cfg = config.${namespace}.homelab-machines.dell-5810;
-in
 with lib; {
-  imports = [
-    ../common/nvidia.nix
-  ];
+  
+  options.${namespace}.homelab-machines.dell-5810.graphics = {
+    cards = mkOption { 
+      type = types.attrsOf (types.submodule ( import ../common/subtypes/graphics-card.nix ) );
+      default = {};
+      description = "NVIDIA Graphics cards information";
+    };
+  };
 
   # Define the graphics cards...
-  config.${namespace}.homelab-machines.dell-5810.graphics.nvidia.cards = {
+  config.${namespace}.homelab-machines.dell-5810.graphics.cards = {
     
     nvidia-1060 = {
       graphics = {
