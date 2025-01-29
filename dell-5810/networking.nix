@@ -1,7 +1,7 @@
 { config, lib, pkgs, namespace, ... }: 
-let cfg = config.${namespace}.homelab-machines; in
+let cfg = config.${namespace}.homelab.machines; in
 {
-  config.${namespace}.homelab-machines.networking = {
+  config.${namespace}.homelab.machines.networking = {
     hostIdSeed = "dell-5810";
     defaultNetworkingConfig = "static-bridge";
     primaryNetworkInterface = "enp0s25";

@@ -13,7 +13,7 @@
 
   outputs = { self, nixpkgs, disko, impermanence, ... }@inputs:
   let
-      namespace = "github__briancprice.homelab";
+      namespace = "github__briancprice";
       stateVersion = "24.11"; 
       system-x86_64-linux = "x86_64-linux";
 
@@ -46,17 +46,16 @@
         ];
       };
 
-      dell-5810Config = { config, pkgs, ...}: {
+      dell-5810Config = { config, namespace, ...}: {
         imports = [
           inputs.disko.nixosModules.disko
           ./dell-5810
         ];
-        
       };
     };
 
     nixosConfigurations = {
-
+      /*
       # Base configuration for my lenovo laptop
       lenovo-bootstrap = nixpkgs.lib.nixosSystem {
         system = system-x86_64-linux;
@@ -67,6 +66,7 @@
           ./common/onboard-configuration.nix
         ];
       };
+      */
 
       # Base configuration for a qemu vm
       qemu-guest-bootstrap = nixpkgs.lib.nixosSystem {

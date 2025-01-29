@@ -12,6 +12,7 @@ with lib; {
   # Select internationalization properties.
   i18n.defaultLocale = "en_US.UTF-8"; 
   # Setup a user account for onboarding
+  users.mutableUsers = mkDefault false;
   users = {
     users.onboard = {
       isNormalUser = true;

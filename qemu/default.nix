@@ -15,10 +15,10 @@ with config; with lib; {
     # Hardware configuration for lenovo laptop
     ../qemu/hardware-configuration.nix
     ../common
-    ({config, namespace, ...}: {
-      config.${namespace}.homelab-machines.networking = {
-        defaultNetworkingConfig = "dhcp";
-      }; })
+    ({ config, namespace, ... }: {
+      config.${namespace}.homelab.machines.qemu = {
+      };
+    })
   ]; 
 }
 
