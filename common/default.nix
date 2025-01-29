@@ -38,7 +38,7 @@ with lib; {
           };
 
           virtualisation = mkOption {
-            type = types.submodule (import ./subtypes/virtualisation.nix);
+            type = types.submodule (import ./subtyppes/virtualisation.nix);
             description = "The virtualisation options for this machine.";
           };
 
